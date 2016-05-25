@@ -21,6 +21,7 @@ export default React.createClass({
         numInvalid: false
       })
     }
+    e.preventDefault();
   },
   onHandleExpDateChange(e){
     // if date before today add error class
@@ -33,6 +34,7 @@ export default React.createClass({
         dateInvalid: false
       })
     }
+    e.preventDefault();
   },
   onHandleCvvChange(e){
     // if CVV not complete (3 nums) add error class
@@ -45,6 +47,7 @@ export default React.createClass({
         cvvInvalid: false
       })
     }
+    e.preventDefault();
   },
   onHandleCardNameChange(e){
     // if name less than 3 chars add error class
@@ -57,10 +60,15 @@ export default React.createClass({
         nameInvalid: false
       })
     }
+    e.preventDefault();
+  },
+  onHandleSubmit(e){
+    // check for any true states - set card border red if they exist
+    e.preventDefault();
   },
   render() {
     return (
-      <form className="credit__card">
+      <form className="credit__card" onSubmit={this.onHandleSubmit}>
         <div className={this.state.isInvalid? "inputs__invalid" : ""}>
           <input className={this.state.numInvalid? "card__number single__input--invalid" : "card__number single__input"} type="text" placeholder="XXXXXXXXXXXXXXXX" maxLength="16" onChange={this.onHandleCardNumChange}/> <h5 className="card__text">Exp. Date</h5>
           <input className={this.state.dateInvalid? "single__input--invalid" : "single__input"} type="date" onChange={this.onHandleExpDateChange}/>
