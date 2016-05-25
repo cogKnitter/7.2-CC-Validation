@@ -83,7 +83,7 @@ html {
 
 .single__input--invalid {
   border-color: rgba(255, 0, 0, 0.6);
-  margin: 1rem; }
+  margin: 0.3rem; }
 
 .card__text {
   color: white;
