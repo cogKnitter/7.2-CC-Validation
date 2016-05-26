@@ -7,7 +7,20 @@ export default React.createClass({
       numInvalid: false,
       dateInvalid: false,
       cvvInvalid: false,
-      nameInvalid: false
+      nameInvalid: false,
+      formInvalid: false
+    }
+  },
+  checkStates(){
+    // if any state is true set formInvalid to true
+    if((this.state.numInvalid === true) || (this.state.dateInvalid === true) || (this.state.cvvInvalid === true) || (this.state.nameInvalid === true)){
+        this.setState({
+          formInvalid: true
+        })
+    }else{
+      this.setState({
+        formInvalid: false
+      })
     }
   },
   onHandleCardNumChange(e){
@@ -21,7 +34,7 @@ export default React.createClass({
         numInvalid: false
       })
     }
-    e.preventDefault();
+    this.checkStates();
   },
   onHandleExpDateChange(e){
     // if date before today add error class
@@ -34,7 +47,7 @@ export default React.createClass({
         dateInvalid: false
       })
     }
-    e.preventDefault();
+    this.checkStates();
   },
   onHandleCvvChange(e){
     // if CVV not complete (3 nums) add error class
@@ -47,7 +60,7 @@ export default React.createClass({
         cvvInvalid: false
       })
     }
-    e.preventDefault();
+    this.checkStates();
   },
   onHandleCardNameChange(e){
     // if name less than 3 chars add error class
@@ -60,16 +73,12 @@ export default React.createClass({
         nameInvalid: false
       })
     }
-    e.preventDefault();
-  },
-  onHandleSubmit(e){
-    // check for any true states - set card border red if they exist
-    e.preventDefault();
+    this.checkStates();
   },
   render() {
     return (
-      <form className="credit__card" onSubmit={this.onHandleSubmit}>
-        <div className={this.state.isInvalid? "inputs__invalid" : ""}>
+      <form className={this.state.formInvalid? "credit__card--invalid" : "credit__card"}>
+        <div>
           <input className={this.state.numInvalid? "card__number single__input--invalid" : "card__number single__input"} type="text" placeholder="XXXXXXXXXXXXXXXX" maxLength="16" onChange={this.onHandleCardNumChange}/> <h5 className="card__text">Exp. Date</h5>
           <input className={this.state.dateInvalid? "single__input--invalid" : "single__input"} type="date" onChange={this.onHandleExpDateChange}/>
           <input className={this.state.nameInvalid? "holder__name single__input--invalid" : "holder__name single__input"} type="text" placeholder="Full Name" onChange={this.onHandleCardNameChange}/>          <input className={this.state.cvvInvalid? "cvv_number single__input--invalid" : "cvv_number single__input"} type="number" placeholder="CVV" onChange={this.onHandleCvvChange}/>
